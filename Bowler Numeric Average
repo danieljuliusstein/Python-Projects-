@@ -1,0 +1,14 @@
+bowlingGame1 = input("Game 1 score: ")
+bowlingGame2 = input("Game 2 score: ")
+bowlingGame3 = input("Game 3 score: ")
+
+bowlingGame1 = int(bowlingGame1) 
+bowlingGame2 = int(bowlingGame2)
+bowlingGame3 = int(bowlingGame3)
+
+total = bowlingGame1 + bowlingGame2 + bowlingGame3
+
+print("the numeric average which you bowled was: ")
+numericAverage = total / 3
+
+print(numericAverage)
