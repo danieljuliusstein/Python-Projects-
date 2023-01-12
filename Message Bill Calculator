@@ -1,0 +1,12 @@
+messages = 0.25 
+tax = 1.09
+
+messagesSent = input("Enter # of text messages sent last month: ")
+
+messagesSent = int(messagesSent)
+
+print("your total bill is: ")
+
+total = messagesSent * messages * tax
+
+print(total)
