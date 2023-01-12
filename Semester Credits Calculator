@@ -1,0 +1,12 @@
+fall = input("Enter credits earned for the Fall: ")
+spring = input("Enter credits earned for the Spring: ")
+summer = input("Enter credits earned for the Summer: ")
+
+fall = int(fall)
+spring = int(spring)
+summer = int(summer)
+
+total = fall + spring + summer
+
+print("total credits: ")
+print(total)
