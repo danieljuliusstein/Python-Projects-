@@ -1,0 +1,14 @@
+length = input("length of object: ")
+width = input("width of object: ")
+
+length = int(length)
+width = int(width)
+
+area = length * width
+perimeter = length + length + width + width
+
+print("your area is: ")
+print(area)
+
+print("your perimeter is: ")
+print(perimeter)
