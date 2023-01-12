@@ -1,0 +1,25 @@
+boxOfChips = 15 
+bagOfHotdogBuns = 12 
+bagOfBurgerBuns = 16 
+
+hotdogWithChips = 0.5
+burgerWithChips = 0.75 
+
+packOfHotdogs = 24 
+boxOfBurgerPatties = 45 
+
+guestAttendance = input("how many guests are attending your event: ")
+guestAttendance = int(guestAttendance)
+
+hotdogOrders = input("how many orders of hotdogs are needed: ")
+hotdogOrders = int(hotdogOrders)
+
+burgerOrders = input("how many orders of burgers are needed: ")
+burgerOrders = int(burgerOrders)
+
+hotdogTimesChips = hotdogOrders * hotdogWithChips 
+burgerTimesChips = burgerOrders * burgerWithChips
+
+totalOrder = (hotdogTimesChips + hotdogOrders) + (burgerTimesChips + burgerOrders) 
+
+print(totalOrder)
