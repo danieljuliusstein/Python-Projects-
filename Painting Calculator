@@ -1,0 +1,33 @@
+job = 23.45 
+squareFeet = 200 
+gallonsPaint = 133.33
+hours = 20 
+
+reqSqFt = float(input("Input the required square feet of wall space needed to be painted: ")) 
+
+pricePaintPGal = float(input("price of paint per gallon: $"))
+
+#solve for amount of gallons 
+solveGal =  float(reqSqFt / gallonsPaint) 
+
+print(f"the amount of gallons: ${round(solveGal,2)}")
+
+hoursOfLabor = float(reqSqFt / hours)
+hoursOfLabor = round(hoursOfLabor, 2) 
+
+#solve for hours of labor 
+print(f"hours of labor needed to complete the job: ${hoursOfLabor}")
+
+
+wholePaintCost = float(pricePaintPGal * solveGal) 
+print(f"the cost of the paint is: ${round(wholePaintCost, 2)}")
+
+
+laborCharge = float(job * hoursOfLabor)
+
+print(f"the labor charges for the paint job per hour: ${round(laborCharge, 2)}")
+
+totalCost = float(laborCharge + wholePaintCost)
+
+print(f"the total cost is: ${round(totalCost, 2)}")
+
