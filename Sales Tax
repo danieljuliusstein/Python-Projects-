@@ -1,22 +1,17 @@
-payoff = 1/36 
+item = input("enter price of your item: ")
 
-automobileLoanBalance = input("enter an automobile loan balance: ")
+item = int(item)
 
-automobileLoanBalance = int(automobileLoanBalance)
+rate = 0.08
 
+print("amount of tax: ")
 
-month1 = automobileLoanBalance * payoff
-print("month 1 you are paying: ")
-print(month1)
+tax = item * rate
 
-newBalance = automobileLoanBalance - month1 
-print("amount remaining to pay off: ")
-print(newBalance)
+print(tax)
 
-month2 = automobileLoanBalance * payoff
-print("month 2 you are paying: ")
-print(month2)
+taxedResult = tax + item
 
-newerBalance = automobileLoanBalance - (month1 + month2)
-print("amount remaining to pay off: ")
-print(newerBalance)
+print("your new price is: ")
+
+print(taxedResult)
