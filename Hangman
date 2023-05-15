@@ -1,0 +1,92 @@
+import random 
+
+#the words in which the computer will give a random string for the user to begin playing the hangman game
+WORDS = ("spoken","close","character","sky","flame","high", "seed","strike","eager","driver","market","glad","where","discovery","circus","please","end","lie","perhaps","run","lunch","income","remember","instant","oxygen","both","quickly","trick","tree","past","engine","primitive","hill","improve","problem","bright","select","lot","real","additional","family","tomorrow","division","remember","science","supply","sister","rod","ocean","bone","piano","peace","climb","sheep","bone","where","held","want","mail","fair","chain","number","should","magnet","came","massage","easier","score","brother","atomic","tape","force","skill","automobile","young","salt","instant","hat","roof","importance","among","laid","dried","during","repeat","bean","herd","chart","in","control","stood","separate","seat","sweet","south","bush","go","lamp","under","fierce","freedom","lift","running","count","chair","concerned","trail","chose","meet","eleven","tales","arm","silly","his","softly","capital","which","yesterday","location","cold","think","center","heat","fewer","familiar","wealth","owner","tube","name","religious","yourself","course","rubber","action","public","dozen","spider","average","forward","stop","split","explain","fairly","stove","number","apartment","exist","clock","twenty","make","standard","gone","rubber","comfortable","burn","double","origin","tongue","pale","repeat","double","straight","write","engineer","swept","plural","equally","vast","bound","shown","girl","dream","news","setting","parallel","shadow","personal","rate","trunk","straight","park","declared","been","square","let","daughter","mean","shore","softly","battle","burn","nine","brown","studied","baby","pie","thy","star","corner","all","main","differ","bread","stop","space","been","gentle","castle","telephone","production","city","applied","farm","once","garage","find","congress","weak","heat","tree","pound","active","meal","information","offer","they","lot","silk","valley","lungs","air","fact","motion","low","only","tie","swim","tea","partly","command","sail","had","business","ring","seldom","idea","active","down","customs","changing","lady","onto","satisfied","disease","sit","dog","hunter","evidence","organization","beauty","child","doll","tribe","younger","until","attack","outline","eat","strip","guide","contain","satisfied","transportation","reason","forward","clay","elephant","likely","knew","decide","spin","behavior","mad","private","direct","fall","same","knew","passage","correctly","action","sign","diagram","accurate","soon","gone","feathers","recently","design","fall","themselves","said","handle","refused","remain","small","forest","refer","give","trap","court","rose","tightly","support","locate","itself","weight","seen","fewer","afraid","softly","necessary","including","bend","which","mother","such","doubt","careful","has","tree","please","care","everywhere","solid","got","organization","mysterious","kitchen","job","library","meal","straight","breathing","gulf","labor")
+
+#choses a random word and sets it to var. random_word
+random_word = random.choice(WORDS) 
+
+#takes the length of the random word and sets it equal to num tries
+num_tries = len(random_word)
+
+#letters user typed is turned into an array
+letters_user_has_typed = []
+
+
+#array the guesses will go into
+user_guesses = []
+
+#turns word into stars
+replaced_word = '*' * len(random_word)
+
+#turns stars into an array
+stars_into_array = ([*replaced_word]) 
+
+#variable string == the array of random_word
+string = ([*random_word])
+
+#takes the stars out of the array and turns into a string 
+joined = " ".join(replaced_word)
+correct_word = "".join(stars_into_array)
+
+#word_list = random_word.split()
+print(f"Welcome to Hangman! You have to guess the mystery word in {num_tries} guesses or less.\n")
+
+
+#creates a while loop which runs through the code until the condition is met! 
+while True:    
+  
+  #tells the user what they have left and num guesses 
+  print(f"Here's what you have so far: {correct_word} ")
+  print(f"You have {num_tries} guesses left")
+  new = " ".join(user_guesses)
+
+  print(f"Here are the letters you have guessed so far: {new}")
+  #the input
+
+  #The player input
+  guess = input("What letter would you like to guess next? ").lower()
+  
+  #cheat code == cheat
+  if guess == "cheat":
+    print(f"\nhere is the word you cheater: {random_word}\n")
+    continue
+    
+  #tells the user if they already picked a word
+  if guess in user_guesses: 
+    print("\nyou already guessed this\n")
+    continue
+    
+  user_guesses.append(guess)
+  join_guesses = "".join(user_guesses)
+  
+  #lose condition
+  if guess not in string: 
+    print("\nwrong :(\n")
+    num_tries -= 1
+    if num_tries == 0: 
+      print("ran out of tries. You lose\n")
+      print(f"the word was: {random_word}")
+      break
+      
+  if guess in string: 
+
+    print("\nGood job!\n")
+  
+      
+    for i, value in enumerate(string): 
+      if guess == string[i]: 
+          
+        stars_into_array[i] = value
+        correct_word = "".join(stars_into_array)
+        
+    #win condition
+    if correct_word == random_word: 
+      print(f"the word was: {random_word}\n")
+      print("you win!\n")
+      break
+        
+  #check process: 
+        
+  #print([*string])
+  #print(stars_into_array)
