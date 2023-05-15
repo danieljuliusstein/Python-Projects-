@@ -1,0 +1,295 @@
+import os
+os.environ['PYGAME_HIDE_SUPPORT_PROMPT'] = "hide"
+import pygame, sys
+from pygame.locals import QUIT
+import random
+import faulthandler; faulthandler.enable()
+
+pygame.init()
+SCREEN_WIDTH = 300
+SCREEN_HEIGHT = 300
+
+infoObject = pygame.display.Info()
+
+
+surface = pygame.display.set_mode((infoObject.current_w, infoObject.current_h), pygame.FULLSCREEN)
+
+w, h = pygame.display.get_surface().get_size()
+
+get_width = surface.get_width() / 2
+get_height = surface.get_height() / 2
+
+FPS_CLOCK = pygame.time.Clock()
+
+square_length = 150
+square_height = 150
+
+white = (255, 255, 255)
+black = (0, 0, 0)
+green = (0, 255, 0)
+light_green = (158, 255, 158)
+blue = (0, 0, 255)
+light_blue = (173, 216, 230)
+red = (255, 0, 0)
+light_red = (255, 204, 203)
+yellow = (255, 255, 0)
+light_yellow = (255, 255, 237)
+
+gameScore = 0
+
+highScores = [0]
+
+def game():
+  
+  with open("score.txt", "w") as f:
+    f.write(str(highScores[0]))
+    
+  random_color = ["red", "green", "blue", "yellow"]
+  
+  random_number = [2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
+  
+  counter = 0 
+  global gameScore
+  
+  random_color_choice = random.choice(random_color)
+  random_number_choice = random.choice(random_number) 
+  
+  surface.fill("black")
+  
+  rect1 = pygame.Rect(get_width - square_length - 5, get_height - square_height - 5,square_length, square_height)
+  pygame.draw.rect(surface, red, rect1, 0, 20)
+  rect2 = pygame.Rect(get_width + 5, get_height + 5,   square_length, square_height)
+  pygame.draw.rect(surface, green, rect2, 0,20)
+  rect3 = pygame.Rect(get_width - 5 - square_length, get_height + 5, square_length, square_height)
+  pygame.draw.rect(surface, blue, rect3,0,20)
+  rect4 = pygame.Rect(get_width + 5, get_height - square_height - 5, square_length, square_height)
+  pygame.draw.rect(surface, yellow, rect4,0,20)
+  
+  pygame.display.set_caption('Color Game')
+  font = pygame.font.Font('freesansbold.ttf', 32)
+  title = font.render(f"click {random_color_choice} {random_number_choice} times", True, white, black)
+  titleRect = title.get_rect()
+  titleRect.center = (get_width, get_height - 250)
+  surface.blit(title, titleRect)
+  
+  restart_rect = pygame.Rect(get_width - 160, get_height + 175, square_length , square_height / 1.5)
+  font = pygame.font.Font('freesansbold.ttf', 35)
+  res_text = font.render("restart", True, white)
+  resRect = res_text.get_rect()
+  resRect.center = (get_width - 85, get_height + 225)
+  
+  
+  quit_game = pygame.Rect(get_width + 10, get_height + 175, square_length , square_height / 1.5)
+  font = pygame.font.Font('freesansbold.ttf', 35)
+  quit_text = font.render("quit", True, white)
+  quitRect = quit_text.get_rect()
+  quitRect.center = (get_width + 80, get_height + 225)
+  
+  
+  def win_func(): 
+    win_rect = pygame.Rect(get_height - square_length * 2, get_height - square_height * 2, w ,h)
+    pygame.draw.rect(surface,green, win_rect)
+    font = pygame.font.Font('freesansbold.ttf', 60)
+    winText = font.render("you win!", True, white, green)
+    winRect = winText.get_rect()
+    winRect.center = (get_width, get_height)
+    surface.blit(winText, winRect)
+    surface.blit(res_text, resRect)
+    surface.blit(quit_text, quitRect)
+    pygame.draw.rect(surface, white,  restart_rect, 4)
+    pygame.draw.rect(surface, white, quit_game, 4)  
+    
+  def scoreFunc(): 
+    global scoreRect
+    global score
+    pygame.display.set_caption('Color Game')
+    font = pygame.font.Font('freesansbold.ttf', 32)
+    score = font.render(f"score: {gameScore}", True, white, black)
+    scoreRect = score.get_rect()
+    scoreRect.center = (get_width, get_height - 200)
+    
+      
+  def rectangle_color_change(rect, color):
+    pygame.draw.rect(surface, color, rect, 0, 20)  
+    
+  
+  
+  def lose_func():
+    global value
+    lose_rect = pygame.Rect(w - w, h - h,w, h)
+    pygame.draw.rect(surface,red, lose_rect)
+    font = pygame.font.Font('freesansbold.ttf', 60)
+    lose = font.render("you lose", True, white, red)
+    loseRect = lose.get_rect()
+    loseRect.center = (get_width, get_height - 130)
+    surface.blit(lose, loseRect)
+    surface.blit(res_text, resRect)
+    surface.blit(quit_text, quitRect)
+    pygame.draw.rect(surface, white,  restart_rect, 4)
+    pygame.draw.rect(surface, white, quit_game, 4)  
+
+    if gameScore > highScores[0]: 
+      highScores.remove(highScores[0])
+      highScores.append(*[gameScore])
+      with open("score.txt", "w") as f:
+        f.write(str(highScores))
+        value = gameScore
+        
+    scFont = pygame.font.Font('freesansbold.ttf', 32)
+    renderSc = scFont.render(f"score: {gameScore}", True, white, red)
+    scRect = renderSc.get_rect()
+    scRect.center = (get_width - 20, get_height - 60)
+    surface.blit(renderSc, scRect)
+    
+    hiFont = pygame.font.Font('freesansbold.ttf', 32)
+    renderHi = hiFont.render(f"High Score: {highScores[0]}", True, white, red)
+    highRect = renderHi.get_rect()
+    highRect.center = (get_width - 20, get_height - 20)
+    surface.blit(renderHi, highRect)
+  
+  scoreFunc()
+  surface.blit(score, scoreRect) 
+  pygame.display.flip()
+  lose = False 
+  squares = True
+  game_state = True 
+  colorChange = True 
+  
+  while game_state:
+    FPS_CLOCK.tick(60)
+    pygame.init()
+    pygame.display.update()
+    
+    for event in pygame.event.get():
+      if event.type == QUIT:
+        pygame.quit()
+        sys.exit()
+      
+      
+      
+      if event.type == pygame.MOUSEBUTTONDOWN: 
+        global mouse_presses
+        mouse_presses = pygame.mouse.get_pressed()
+        
+        
+        if mouse_presses[0]: 
+          
+          mouse_location = pygame.mouse.get_pos() 
+          mouse_coords = (mouse_location[0], mouse_location[1])
+          
+          restart_check = mouse_coords[0] >= restart_rect.bottomleft[0] and mouse_coords[0] <=restart_rect.bottomright[0] and mouse_coords[1] <= restart_rect.bottomleft[1] and mouse_coords[1] >= restart_rect.topleft[1]
+          quit_check = mouse_coords[0] >= quit_game.bottomleft[0] and mouse_coords[0] <= quit_game.bottomright[0] and mouse_coords[1] <= quit_game.bottomleft[1] and mouse_coords[1] >= quit_game.topleft[1]
+          
+          rect1_check = mouse_coords[0] >= rect1.bottomleft[0] and mouse_coords[0] <= rect1.bottomright[0] and mouse_coords[1] <= rect1.bottomleft[1] and mouse_coords[1] >= rect1.topleft[1]
+          rect2_check = mouse_coords[0] >= rect2.bottomleft[0] and mouse_coords[0] <= rect2.bottomright[0] and mouse_coords[1] <= rect2.bottomleft[1] and mouse_coords[1] >= rect2.topleft[1]
+          rect3_check = mouse_coords[0] >= rect3.bottomleft[0] and mouse_coords[0] <= rect3.bottomright[0] and mouse_coords[1] <= rect3.bottomleft[1] and mouse_coords[1] >= rect3.topleft[1]
+          rect4_check = mouse_coords[0] >= rect4.bottomleft[0] and mouse_coords[0] <= rect4.bottomright[0] and mouse_coords[1] <= rect4.bottomleft[1] and mouse_coords[1] >= rect4.topleft[1]
+          
+         
+
+          if random_color_choice == "red":
+            
+            if rect1_check and squares == True:
+              rectangle_color_change(rect1, light_red)
+              color = red
+              counter += 1
+              
+              scoreFunc()
+              if counter == random_number_choice: 
+                gameScore += 1
+                game()
+
+            if rect2_check or rect3_check or rect4_check: 
+              lose = True
+              
+              lose_func()
+              squares = False 
+              colorChange = False
+            if restart_check and lose == True and squares == False and colorChange == False: 
+              gameScore =0 
+              
+              game()
+            if quit_check and lose == True and squares == False and colorChange == False: 
+              pygame.quit()
+              exit()  
+              
+          if random_color_choice == "green":
+            
+            if rect2_check and squares == True: 
+              rectangle_color_change(rect2, light_green)
+              color = green
+              counter += 1
+              
+              scoreFunc()
+              if counter == random_number_choice:
+                gameScore += 1
+                game()
+
+            if rect1_check or rect3_check or rect4_check: 
+              lose = True
+              
+              lose_func()
+              squares = False 
+              colorChange = False
+            if restart_check and lose == True and squares == False and colorChange == False: 
+              gameScore =0 
+              
+              game()
+            if quit_check and lose == True and squares == False and colorChange == False: 
+              pygame.quit()
+              exit()    
+          if random_color_choice == "yellow":
+            
+            if rect4_check and squares == True: 
+              rectangle_color_change(rect4, light_yellow)
+              color = yellow
+              counter += 1
+              
+              scoreFunc()
+              if counter == random_number_choice:
+                gameScore += 1
+                game()
+                
+            if rect1_check or rect2_check or rect3_check: 
+              lose = True
+              
+              lose_func()
+              squares = False
+              colorChange = False
+            if restart_check and lose == True and squares == False and colorChange == False: 
+              gameScore =0 
+              
+              game()
+            if quit_check and lose == True and squares == False and colorChange == False: 
+              pygame.quit()
+              exit()    
+  
+          if random_color_choice == "blue":
+             
+            if rect3_check and squares == True: 
+              counter += 1
+              rectangle_color_change(rect3, light_blue)
+              color = blue
+              
+              scoreFunc()
+
+              if counter == random_number_choice:
+                gameScore += 1
+                game()
+
+                
+            if rect1_check or rect2_check or rect4_check: 
+              lose = True
+              
+              lose_func()
+              squares = False
+              colorChange = False
+            if restart_check and lose == True and squares == False and colorChange == False: 
+              gameScore =0 
+              
+              game()
+            if quit_check and lose == True and squares == False and colorChange == False: 
+              pygame.quit()
+              exit()   
+              
+game()
