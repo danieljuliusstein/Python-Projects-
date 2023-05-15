@@ -1,0 +1,73 @@
+import random
+
+print("*****WELCOME*****\nThis is our game of chance.\nLet's see if you won...\n")
+
+dice_roll_guess = int(input("What is your guess on the dice roll?\n->"))
+
+random_dice_roll = random.randint(1, 6)
+
+heads_or_tails = str(input("What is your guess on the coin flip, Heads (H) or Tails (T)\n->"))
+
+coin_flip = random.randint(1, 2)
+
+if coin_flip == 1: 
+  coin_flip = "H"
+else:
+  coin_flip = "T"
+  
+spinner_guess = str(input("What is your guess on the spinner, red (r), green (g), blue (b), or yellow (y)?\n-> ")) 
+
+spinner = random.randint(1, 4)
+
+
+if spinner_guess == "r":
+  spinner_guess = "red"
+elif spinner_guess == "y":
+  spinner_guess = "yellow"
+elif spinner_guess == "b":
+  spinner_guess = "blue"
+elif spinner_guess == "g":
+  spinner_guess = "green"
+else:
+  spinner_guess = ""
+
+if spinner == 1: 
+  spinner = "red"
+elif spinner == 2: 
+  spinner = "yellow"
+elif spinner == 3: 
+  spinner = "blue"
+else:
+  spinner = "green"
+  
+print(f"\nYou rolled a {random_dice_roll}\n")
+print(f"You flipped {coin_flip}\n")
+print(f"You spun {spinner}\n")
+
+
+def check_dice(n):
+  if dice_roll_guess == random_dice_roll: 
+    return "dice"
+  else: 
+    return ""
+
+def check_coin(n):
+  if heads_or_tails == coin_flip: 
+    return "coin"
+  else: 
+    return ""
+
+def check_spin(n):
+  if spinner_guess == spinner: 
+    return "spin"
+  else: 
+    return ""
+
+new_spin = check_dice(1)
+new_coin = check_coin(1)
+new_die = check_spin(1)
+
+if dice_roll_guess != random_dice_roll and heads_or_tails != coin_flip and spinner_guess != spinner:
+  print("somehow you got nothing correct")
+else:  
+  print(f"You got the {new_die} {new_coin} {new_spin} correct")
