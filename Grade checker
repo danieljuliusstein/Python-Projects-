@@ -1,0 +1,14 @@
+grade = int(input("enter integer grade to translate into a letter grade from 4-0(4 = A, 3 = B, 2 = C, 1 = D, 0 = F): ")) 
+
+if grade == 4: 
+  print("A")
+elif grade == 3: 
+  print("B")
+elif grade == 2:
+  print("C")
+elif grade == 1: 
+  print("D")
+elif grade == 0: 
+  print("F")
+else: 
+  print("read the instructions 💀")
