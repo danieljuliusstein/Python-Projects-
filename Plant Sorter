@@ -1,0 +1,37 @@
+bunchOfColors = ["red", "green", "brown", "blue", "yellow", "orange", "purple"]
+
+print("--------------------------------------------------------")
+print("| Hi! I am notALanguageModel but you can call me Perry |")
+print("--------------------------------------------------------", '\n')
+
+def identifyPlant(): 
+    while True:
+        color = input("Color of Plant (or 'quit' to exit): ").lower()
+        if color == 'quit':
+          break
+        height = int(input("Height of Plant(number in feet)(or 0 to quit): "))
+        if height == 0: 
+          break 
+        leaf = input("is leaf big (yes or no): ").lower()
+        if leaf == 'quit': 
+          break
+        
+        
+        if color in bunchOfColors: 
+            if color == bunchOfColors[1] or color == bunchOfColors[2]:
+                if color == bunchOfColors[1] and leaf == "big": 
+                    print("Your plant is healthy!")
+                elif color == bunchOfColors[1] and height >= 3: 
+                    print("your plant is healthy!")
+                else:
+                    print("Your plant is dead!")
+                    userInput = input("Enter '0' to continue or '1' to exit: ")
+                    if userInput == "1":
+                        break
+            else: 
+                print('\n',"Sorry, I've never finished second grade. It was quite difficult and my teachers were ******** but even I know that plants can only be green or brown",'\n')
+        else: 
+          print('\n',"I do not understand that input, please try again! ")
+def main(): 
+    identifyPlant()
+main()
