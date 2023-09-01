@@ -1,0 +1,28 @@
+list = []
+punc = '''!()-[]{};:'"\,<>./?@#$%^&*_~'''
+increment = 0
+print("'stop to see list'")
+while True: 
+  user_input = str(input(f"#{increment} enter a task: "))
+  
+  increment += 1
+
+  list.append(user_input)
+  for i in user_input: 
+    if i in punc: 
+      user_input = user_input.replace(i, "")
+  if user_input.lower() == "stop": 
+    list.pop()
+    print(list)
+    correct_or_naw = str(input("is this correct [yes/no]: "))
+    if correct_or_naw.lower() == "yes": 
+      break
+    if correct_or_naw.lower() == "no": 
+      new_input = str(input("which task would you like to change: "))
+      new_input = new_input.lower()
+      list.remove(new_input)
+      after_input = int(input(f"enter a number to place {new_input} after? "))
+      list.insert(after_input, new_input)
+      
+      break
+print(list)
