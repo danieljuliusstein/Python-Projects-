@@ -1,0 +1,16 @@
+tuition = 15000
+rate = 1.07
+
+year = 0
+
+while True: 
+  
+  print(f"start: {round(tuition)}")
+
+  tuition *= rate
+  year +=1 
+  if tuition > 29507 or tuition < 31573:
+    print(f"\n{year} year(s)")
+  if year == 20: 
+    print(round(tuition))
+    break
